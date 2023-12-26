@@ -8,6 +8,7 @@ mydb = sqlite3.connect("databases/library.db")
 cursor = mydb.cursor()
 
 def create_db():
+
     # This will create a table named "books" and if already exists, then ignore.
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS books(
@@ -24,7 +25,7 @@ def create_db():
         CREATE TABLE IF NOT EXISTS borrowed_books(
             Recipient_Name VARCHAR(30) NOT NULL,
             Borrowed_Books VARCHAR(30) NOT NULL,
-            Days_Left NOT NULL
+            Days_Left INTEGER NOT NULL
         )
     ''')
     
@@ -45,6 +46,5 @@ def main():
     elif user_status == "user":
         print("Woohooo!")
 
-# os.system("cls")
-main()
-# create_db()
+# main()
+create_db()
