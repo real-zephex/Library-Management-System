@@ -1,71 +1,50 @@
-# Library Management System
 import os
 import sqlite3
-import importlib
-
-module_info = {
-	"admin":None,
-	"user":None
-}
-user_status = None
-enabled_modules = []
+import admin, user
 
 # Connect to SQLite database
-connection = sqlite3.connect("databases/library.db")
+mydb = sqlite3.connect("databases/library.db")
 
-cursor = connection.cursor()
+cursor = mydb.cursor()
 
-def create_database():
-	# This will create a table named books and will ignore if it already exists
-	cursor.execute('''
-		CREATE TABLE IF NOT EXISTS books (
-			ID INTEGER NOT NULL,
-			Book TEXT NOT NULL,
-			Author TEXT NOT NULL,
-			Published_on TEXT NOT NULL,
-			Publisher TEXT NOT NULL,
-			Copies TEXT
-		)
-	''')
+def create_db():
+    # This will create a table named "books" and if already exists, then ignore.
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS books(
+            ID INTEGER NOT NULL,
+            BOOK_NAME VARCHAR(30) NOT NULL,
+            AUTHOR_NAME VARCHAR(30) NOT NULL,
+            PUBLISHING_DATE DATE,
+            NUMBER_OF_COPIES_AVAILABLE INTEGER
+        )
+    ''')
+    
+    # This will create a table named "borrowed_books" and if already exists, then ignore.
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS borrowed_books(
+            Recipient_Name VARCHAR(30) NOT NULL,
+            Borrowed_Books VARCHAR(30) NOT NULL,
+            Days_Left NOT NULL
+        )
+    ''')
+    
+    mydb.commit()
+    mydb.close()
 
-def import_check():
-	'''
-		This function will check whether the admin.py and user.py files have any issues or not.
-	'''
-	for i in module_info.keys():
-		try:
-			module = importlib.import_module(i)
-			module_info[i] = module
-		except ImportError as _:
-			module_info[i] = False
-		except (NameError, SyntaxError) as _:
-			module_info[i] = False
+user_status = None
+def main():
+    global user_status
+    print("""
+            Welcome to XYZ Library!!!
+        """)
+    while user_status not in ["admin", "user"]:
+        user_status = input("Would you like to access the database as an admin user or a user? : ").lower()
+    
+    if user_status == "admin":
+        print("Yay")
+    elif user_status == "user":
+        print("Woohooo!")
 
-	disabled_modules = [i for i in module_info.keys() if module_info[i] == False]
-	return disabled_modules
-
-def menu():
-	global user_status
-	print(
-		"""
-			Welcome to XYZ Library
-		"""
-	)
-	while user_status not in ["user", "admin"]:
-		user_status = input("Are you a user or an admin: ").lower()
-
-	if user_status in import_check():
-		print("Apologies but it is not available right now.") 
-		exit()
-	
-	if user_status == "user":
-		module_info["user"].User(input("Enter your user id: "))
-
-	elif user_status == "admin":
-		pass
-
-os.system("cls")
-menu()
-
-connection.commit()
-connection.close()
+# os.system("cls")
+main()
+# create_db()
