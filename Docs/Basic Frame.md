@@ -42,5 +42,3 @@ For the user, they should login with an user id of a given format and the progra
 | - | - | - |
 | Person 1 | Book 1 | 3 |
 | Person 2 | Book 2 | 4 |
-
-

@@ -13,7 +13,7 @@ class User:
         Represents a user with valid user id. The format for the username is checked via regex expression. Format should match <first-name>_<surname>@<admission-number>
     """
 
-    pattern = re.compile(r'^[a-zA-Z]+_[a-zA-Z]+@\d+$')
+    pattern = re.compile(r'^[a-zA-Z]+_[a-zA-Z]+@\d{4}+$')
 
     def __init__(self, userid):
         self.userid = userid
@@ -44,6 +44,6 @@ class User:
             print("Apologies but that username was not found.")
             exit()
 
-
-user_id = input("Enter user id ( <firstname>_<secondname>@<admission number> ): ")
-u = User(user_id)
+if __name__ == "__main__":
+    user_id = input("Enter user id ( <firstname>_<secondname>@<admission number> ): ")
+    u = User(user_id)
