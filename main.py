@@ -46,5 +46,5 @@ def main():
     elif user_status == "user":
         print("Woohooo!")
 
-# main()
-create_db()
+main()
+# create_db()
