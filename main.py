@@ -32,9 +32,8 @@ def create_db():
     mydb.commit()
     mydb.close()
 
-user_status = None
-def main():
-    global user_status
+def menu():
+    user_status = None
     print("""
             Welcome to XYZ Library!!!
         """)
@@ -42,9 +41,9 @@ def main():
         user_status = input("Would you like to access the database as an admin user or a user? : ").lower()
     
     if user_status == "admin":
-        print("Yay")
+        admin.authentication()
     elif user_status == "user":
         print("Woohooo!")
 
-main()
+menu()
 # create_db()
