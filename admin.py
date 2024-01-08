@@ -51,7 +51,6 @@ def update_books():
     admin_preference = None
 
     print("\n1. Delete Record(s). \n2. Correction. \n3. Update number of available copies. \n4. View Database\n")
-    choices
 
     while admin_preference not in [1, 2, 3, 4]:
         admin_preference = int(input("Enter your choice:"))
@@ -102,7 +101,7 @@ def update_books():
         rows = cursor.fetchall()
         columns = [desc[0] for desc in cursor.description]
         df = pd.DataFrame(rows, columns = columns)
-        print(tabulate(df, headers = columns, tablefmt='pretty', showindex = 'never'))
+        print(tabulate(df, headers = columns, tablefmt='pretty', showindex = 'never')) # type: ignore 
 
         menu()
 
