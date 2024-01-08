@@ -91,6 +91,7 @@ def update_books():
 
         menu()
 
+    elif admin_preference == 4:
 
         print ("""
                               Info on Table books
@@ -125,9 +126,6 @@ def enter_books():
     ''')
 
     menu()
-
-
-authentication()
 
 connection.commit()
 connection.close()

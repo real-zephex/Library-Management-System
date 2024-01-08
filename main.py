@@ -9,7 +9,6 @@ cursor = mydb.cursor()
 
 def create_db():
 
-    # This will create a table named "books" and if already exists, then ignore.
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS books(
             ID INTEGER NOT NULL,
@@ -20,15 +19,26 @@ def create_db():
         )
     ''')
     
-    # This will create a table named "borrowed_books" and if already exists, then ignore.
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS borrowed_books(
+            Registration_Number INTEGER NOT NULL,
             Recipient_Name VARCHAR(30) NOT NULL,
-            Borrowed_Books VARCHAR(30) NOT NULL,
-            Days_Left INTEGER NOT NULL
+            Borrowed_Book_ID INTEGER NOT NULL,
+            Borrowed_Book_Name VARCHAR(30) NOT NULL,
+            Number_of_Copies_Borrowed INTEGER NOT NULL
         )
     ''')
     
+    # cursor.execute('''
+    #     CREATE TABLE IF NOT EXISTS user_info(
+    #         Registration_Number INTEGER NOT NULL,
+    #         Recipient_Name VARCHAR(30) NOT NULL,
+    #         Borrowed_Books_IDs INTEGER NOT NULL,
+    #         Borrowed_Books_Names VARCHAR(30) NOT NULL,
+    #         Number_of_Copies_Borrowed INTEGER NOT NULL
+    #     )
+    # ''')
+
     mydb.commit()
     mydb.close()
 
@@ -43,7 +53,7 @@ def menu():
     if user_status == "admin":
         admin.authentication()
     elif user_status == "user":
-        print("Woohooo!")
+        user.start()
 
 menu()
 # create_db()
